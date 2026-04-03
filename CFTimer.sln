@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFTimer", "CFTimer\CFTimer.csproj", "{A0211833-5127-444F-B116-7F3D784CA46D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0211833-5127-444F-B116-7F3D784CA46D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0211833-5127-444F-B116-7F3D784CA46D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0211833-5127-444F-B116-7F3D784CA46D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0211833-5127-444F-B116-7F3D784CA46D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
