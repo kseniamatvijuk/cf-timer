@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CFTimer.ViewModels"
+             x:Class="CFTimer.Views.ActiveWorkoutPage"
+             x:DataType="vm:ActiveWorkoutViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{Binding PhaseColor}">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+
+        <!-- Top Area -->
+        <VerticalStackLayout Grid.Row="0" Spacing="4" Padding="0,40,0,0">
+            <HorizontalStackLayout HorizontalOptions="FillAndExpand">
+                <Button Text="&#x2190; Back" Command="{Binding GoBackCommand}"
+                        BackgroundColor="Transparent" TextColor="{Binding PhaseTextColor}"
+                        FontSize="14" Padding="0"/>
+                <Label Text="{Binding WorkoutName}" FontSize="14" TextColor="{Binding PhaseTextColor}"
+                       HorizontalOptions="EndAndExpand" VerticalOptions="Center" Opacity="0.7"/>
+            </HorizontalStackLayout>
+            <Label Text="{Binding RoundDisplay}" FontSize="16" FontFamily="OpenSansSemibold"
+                   HorizontalOptions="Center" TextColor="{Binding PhaseTextColor}"/>
+        </VerticalStackLayout>
+
+        <!-- Center: Timer Display -->
+        <VerticalStackLayout Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
+            <Label Text="{Binding PhaseLabel}" FontSize="20" FontFamily="OpenSansSemibold"
+                   HorizontalOptions="Center" TextColor="{Binding PhaseTextColor}" Opacity="0.8"/>
+            <Label Text="{Binding DisplayTime}" FontSize="96" FontFamily="OpenSansSemibold"
+                   HorizontalOptions="Center" TextColor="{Binding PhaseTextColor}"/>
+            <ProgressBar Progress="{Binding Progress}" ProgressColor="{Binding PhaseTextColor}"
+                         HeightRequest="4" Opacity="0.4"/>
+            <Label Text="{Binding NextPhaseLabel, StringFormat='Next: {0}'}"
+                   FontSize="14" HorizontalOptions="Center"
+                   TextColor="{Binding PhaseTextColor}" Opacity="0.6"
+                   IsVisible="{Binding NextPhaseLabel, Converter={StaticResource StringToBoolConverter}}"/>
+            <Label Text="{Binding TotalElapsed, StringFormat='Total: {0}'}"
+                   FontSize="13" HorizontalOptions="Center"
+                   TextColor="{Binding PhaseTextColor}" Opacity="0.5"/>
+        </VerticalStackLayout>
+
+        <!-- Bottom Controls -->
+        <VerticalStackLayout Grid.Row="2" Spacing="12" Padding="0,0,0,40">
+
+            <!-- Not started yet -->
+            <Button Text="START" Command="{Binding StartCommand}"
+                    IsVisible="{Binding IsRunning, Converter={StaticResource InverseBoolConverter}}"
+                    BackgroundColor="{StaticResource WorkColor}" TextColor="White"
+                    FontFamily="OpenSansSemibold" FontSize="22" HeightRequest="64" CornerRadius="32">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsPaused}" Value="True">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsFinished}" Value="True">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <!-- Running controls -->
+            <HorizontalStackLayout Spacing="16" HorizontalOptions="Center" IsVisible="{Binding IsRunning}">
+                <Button Text="PAUSE" Command="{Binding PauseResumeCommand}"
+                        BackgroundColor="{StaticResource PrepColor}" TextColor="White"
+                        FontFamily="OpenSansSemibold" FontSize="16" HeightRequest="56" WidthRequest="120" CornerRadius="28"/>
+                <Button Text="SKIP" Command="{Binding SkipCommand}"
+                        BackgroundColor="Transparent" TextColor="{Binding PhaseTextColor}"
+                        BorderColor="{Binding PhaseTextColor}" BorderWidth="1"
+                        FontSize="14" HeightRequest="56" WidthRequest="80" CornerRadius="28"/>
+                <Button Text="DONE" Command="{Binding FinishWorkoutCommand}"
+                        BackgroundColor="{StaticResource DangerColor}" TextColor="White"
+                        FontFamily="OpenSansSemibold" FontSize="16" HeightRequest="56" WidthRequest="100" CornerRadius="28"
+                        IsVisible="{Binding ShowFinishButton}"/>
+            </HorizontalStackLayout>
+
+            <!-- Paused controls -->
+            <HorizontalStackLayout Spacing="16" HorizontalOptions="Center" IsVisible="{Binding IsPaused}">
+                <Button Text="RESUME" Command="{Binding PauseResumeCommand}"
+                        BackgroundColor="{StaticResource WorkColor}" TextColor="White"
+                        FontFamily="OpenSansSemibold" FontSize="16" HeightRequest="56" WidthRequest="140" CornerRadius="28"/>
+                <Button Text="RESET" Command="{Binding ResetTimerCommand}"
+                        BackgroundColor="{StaticResource DangerColor}" TextColor="White"
+                        FontSize="14" HeightRequest="56" WidthRequest="100" CornerRadius="28"/>
+            </HorizontalStackLayout>
+
+            <!-- Finished -->
+            <VerticalStackLayout Spacing="12" IsVisible="{Binding IsFinished}" HorizontalOptions="Center">
+                <Label Text="Great workout!" FontSize="18" FontFamily="OpenSansSemibold"
+                       HorizontalOptions="Center" TextColor="{Binding PhaseTextColor}"/>
+                <HorizontalStackLayout Spacing="16" HorizontalOptions="Center">
+                    <Button Text="Done" Command="{Binding GoBackCommand}"
+                            BackgroundColor="{StaticResource Primary}" TextColor="White"
+                            FontFamily="OpenSansSemibold" FontSize="16" HeightRequest="56" WidthRequest="120" CornerRadius="28"/>
+                    <Button Text="Restart" Command="{Binding ResetTimerCommand}"
+                            BackgroundColor="{StaticResource Gray100}" TextColor="{StaticResource TextPrimary}"
+                            FontSize="14" HeightRequest="56" WidthRequest="120" CornerRadius="28"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+    </Grid>
+
+</ContentPage>

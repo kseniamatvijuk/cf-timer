@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CFTimer.ViewModels"
+             x:Class="CFTimer.Views.WorkoutDetailPage"
+             x:DataType="vm:WorkoutDetailViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Background}">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- Type Badge -->
+        <Border BackgroundColor="{StaticResource Primary}" StrokeThickness="0"
+                HorizontalOptions="Start" Padding="16,8"
+                StrokeShape="RoundRectangle 12">
+            <Label Text="{Binding TypeName}" TextColor="White" FontFamily="OpenSansSemibold" FontSize="14"/>
+        </Border>
+
+        <!-- Summary Card -->
+        <Border Style="{StaticResource CardBorder}">
+            <VerticalStackLayout Padding="20" Spacing="12">
+                <Label Text="{Binding Workout.Name}" FontSize="24" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}"/>
+                <Label Text="{Binding Summary}" FontSize="16" TextColor="{StaticResource TextSecondary}"/>
+                <Label Text="{Binding Workout.Notes}" FontSize="14" TextColor="{StaticResource TextSecondary}"
+                       IsVisible="{Binding Workout.Notes, Converter={StaticResource StringToBoolConverter}}"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Actions -->
+        <Button Text="Start Workout" Command="{Binding StartWorkoutCommand}"
+                BackgroundColor="{StaticResource WorkColor}" TextColor="White"
+                FontFamily="OpenSansSemibold" FontSize="18" HeightRequest="56" CornerRadius="16"/>
+
+        <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+            <Button Text="Edit" Command="{Binding EditWorkoutCommand}"
+                    BackgroundColor="{StaticResource Gray100}" TextColor="{StaticResource TextPrimary}"
+                    FontSize="14" HeightRequest="44" CornerRadius="12" Padding="24,0"/>
+            <Button Text="Duplicate" Command="{Binding DuplicateWorkoutCommand}"
+                    BackgroundColor="{StaticResource Gray100}" TextColor="{StaticResource TextPrimary}"
+                    FontSize="14" HeightRequest="44" CornerRadius="12" Padding="24,0"/>
+            <Button Text="Delete" Command="{Binding DeleteWorkoutCommand}"
+                    BackgroundColor="Transparent" TextColor="{StaticResource DangerColor}"
+                    FontSize="14" HeightRequest="44" Padding="24,0"/>
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+
+</ContentPage>

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet add:*)",
+      "Bash(cmd.exe /c \"dotnet add \"\"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\"\" package CommunityToolkit.Mvvm && dotnet add \"\"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\"\" package CommunityToolkit.Maui && dotnet add \"\"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\"\" package sqlite-net-pcl && dotnet add \"\"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\"\" package SQLitePCLRaw.bundle_green\")",
+      "Bash(\"/c/Program Files/dotnet/dotnet.exe\" add \"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\" package CommunityToolkit.Mvvm)",
+      "Bash(\"/c/Program Files/dotnet/dotnet.exe\" add \"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\" package CommunityToolkit.Mvvm --source https://api.nuget.org/v3/index.json)",
+      "Bash(\"/c/Program Files/dotnet/dotnet.exe\" add \"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\" package CommunityToolkit.Maui --source https://api.nuget.org/v3/index.json)",
+      "Bash(\"/c/Program Files/dotnet/dotnet.exe\" add \"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\" package sqlite-net-pcl --source https://api.nuget.org/v3/index.json)",
+      "Bash(\"/c/Program Files/dotnet/dotnet.exe\" add \"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\" package SQLitePCLRaw.bundle_green --source https://api.nuget.org/v3/index.json)",
+      "Bash(\"/c/Program Files/dotnet/dotnet.exe\" restore \"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\" --source https://api.nuget.org/v3/index.json)",
+      "Bash(\"/c/Program Files/dotnet/dotnet.exe\" build \"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\" -f net10.0-windows10.0.19041.0 --no-restore)",
+      "Bash(\"/c/Program Files/dotnet/dotnet.exe\" build \"C:/Users/kseni/OneDrive/Work/MyApp/CFTimer/CFTimer/CFTimer.csproj\" -f net10.0-windows10.0.19041.0)"
+    ]
+  }
+}

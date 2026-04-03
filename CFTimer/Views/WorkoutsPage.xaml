@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CFTimer.ViewModels"
+             xmlns:models="clr-namespace:CFTimer.Models"
+             x:Class="CFTimer.Views.WorkoutsPage"
+             x:DataType="vm:WorkoutsViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Background}">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- Search -->
+        <SearchBar Grid.Row="0" Text="{Binding SearchText}" Placeholder="Search workouts..."
+                   Margin="16,8"/>
+
+        <!-- Filter Chips -->
+        <ScrollView Grid.Row="1" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" Margin="16,0">
+            <HorizontalStackLayout Spacing="8">
+                <Button Text="All" Clicked="OnFilterTapped" BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="16" HeightRequest="34" FontSize="12" Padding="16,0"/>
+                <Button Text="EMOM" Clicked="OnFilterTapped" BackgroundColor="{StaticResource Gray100}" TextColor="{StaticResource TextPrimary}" CornerRadius="16" HeightRequest="34" FontSize="12" Padding="16,0"/>
+                <Button Text="AMRAP" Clicked="OnFilterTapped" BackgroundColor="{StaticResource Gray100}" TextColor="{StaticResource TextPrimary}" CornerRadius="16" HeightRequest="34" FontSize="12" Padding="16,0"/>
+                <Button Text="Tabata" Clicked="OnFilterTapped" BackgroundColor="{StaticResource Gray100}" TextColor="{StaticResource TextPrimary}" CornerRadius="16" HeightRequest="34" FontSize="12" Padding="16,0"/>
+                <Button Text="Interval" Clicked="OnFilterTapped" BackgroundColor="{StaticResource Gray100}" TextColor="{StaticResource TextPrimary}" CornerRadius="16" HeightRequest="34" FontSize="12" Padding="16,0"/>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- Workouts List -->
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Workouts}" Margin="16,12"
+                         EmptyView="No workouts yet. Tap + to create one!">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Workout">
+                    <Border Style="{StaticResource CardBorder}" Margin="0,0,0,8">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:WorkoutsViewModel}}, Path=OpenWorkoutCommand}" CommandParameter="{Binding}"/>
+                        </Border.GestureRecognizers>
+                        <Grid Padding="16" ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="{Binding Name}" FontFamily="OpenSansSemibold" FontSize="16" TextColor="{StaticResource TextPrimary}"/>
+                                <HorizontalStackLayout Spacing="8">
+                                    <Label Text="{Binding TimerType}" FontSize="12" TextColor="{StaticResource Primary}" FontFamily="OpenSansSemibold"/>
+                                    <Label Text="{Binding Summary}" FontSize="12" TextColor="{StaticResource TextSecondary}"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                            <HorizontalStackLayout Grid.Column="1" Spacing="8" VerticalOptions="Center">
+                                <Button Text="{Binding IsFavorite, Converter={StaticResource FavoriteIconConverter}}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:WorkoutsViewModel}}, Path=ToggleFavoriteCommand}"
+                                        CommandParameter="{Binding}"
+                                        BackgroundColor="Transparent" TextColor="{StaticResource PrepColor}"
+                                        FontSize="20" Padding="4" MinimumWidthRequest="40"/>
+                                <Button Text="&#x25B6;"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:WorkoutsViewModel}}, Path=StartWorkoutCommand}"
+                                        CommandParameter="{Binding}"
+                                        BackgroundColor="{StaticResource WorkColor}" TextColor="White"
+                                        CornerRadius="20" WidthRequest="40" HeightRequest="40" Padding="0" FontSize="14"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

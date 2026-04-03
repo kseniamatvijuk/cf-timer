@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CFTimer.ViewModels"
+             x:Class="CFTimer.Views.HomePage"
+             x:DataType="vm:HomeViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource Background}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,48,20,20" Spacing="24">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="CFTimer" FontSize="28" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}"/>
+                <Label Text="Quick Start" FontSize="16" TextColor="{StaticResource TextSecondary}"/>
+            </VerticalStackLayout>
+
+            <!-- Timer Modes Grid -->
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+
+                <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CardBorder}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToTimerSetupCommand}" CommandParameter="EMOM"/>
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Padding="16" Spacing="8">
+                        <Label Text="&#x1F504;" FontSize="28"/>
+                        <Label Text="EMOM" FontSize="18" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Every Minute" FontSize="12" TextColor="{StaticResource TextSecondary}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CardBorder}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToTimerSetupCommand}" CommandParameter="AMRAP"/>
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Padding="16" Spacing="8">
+                        <Label Text="&#x1F4AA;" FontSize="28"/>
+                        <Label Text="AMRAP" FontSize="18" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Max Rounds" FontSize="12" TextColor="{StaticResource TextSecondary}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource CardBorder}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToTimerSetupCommand}" CommandParameter="Tabata"/>
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Padding="16" Spacing="8">
+                        <Label Text="&#x26A1;" FontSize="28"/>
+                        <Label Text="Tabata" FontSize="18" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Work / Rest" FontSize="12" TextColor="{StaticResource TextSecondary}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CardBorder}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToTimerSetupCommand}" CommandParameter="Interval"/>
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Padding="16" Spacing="8">
+                        <Label Text="&#x23F2;" FontSize="28"/>
+                        <Label Text="Intervals" FontSize="18" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Custom Rounds" FontSize="12" TextColor="{StaticResource TextSecondary}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource CardBorder}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToTimerSetupCommand}" CommandParameter="Countdown"/>
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Padding="16" Spacing="8">
+                        <Label Text="&#x23F3;" FontSize="28"/>
+                        <Label Text="Countdown" FontSize="18" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Set Duration" FontSize="12" TextColor="{StaticResource TextSecondary}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource CardBorder}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToTimerSetupCommand}" CommandParameter="Stopwatch"/>
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Padding="16" Spacing="8">
+                        <Label Text="&#x23F1;" FontSize="28"/>
+                        <Label Text="Stopwatch" FontSize="18" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Count Up" FontSize="12" TextColor="{StaticResource TextSecondary}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- For Time - Full Width -->
+            <Border Style="{StaticResource CardBorder}">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToTimerSetupCommand}" CommandParameter="ForTime"/>
+                </Border.GestureRecognizers>
+                <HorizontalStackLayout Padding="16" Spacing="12">
+                    <Label Text="&#x1F3C1;" FontSize="28" VerticalOptions="Center"/>
+                    <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                        <Label Text="For Time" FontSize="18" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="With optional time cap" FontSize="12" TextColor="{StaticResource TextSecondary}"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- Recent Workouts -->
+            <VerticalStackLayout Spacing="8" IsVisible="{Binding RecentWorkouts.Count, Converter={StaticResource IntToBoolConverter}}">
+                <Label Text="Recent Workouts" FontSize="18" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}"/>
+                <CollectionView ItemsSource="{Binding RecentWorkouts}" HeightRequest="120">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="12"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:Object">
+                            <Border Style="{StaticResource CardBorder}" WidthRequest="160">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=StartWorkoutCommand}" CommandParameter="{Binding}"/>
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Padding="12" Spacing="4" VerticalOptions="Center">
+                                    <Label Text="{Binding Name}" FontFamily="OpenSansSemibold" FontSize="14" LineBreakMode="TailTruncation" TextColor="{StaticResource TextPrimary}"/>
+                                    <Label Text="{Binding TimerType}" FontSize="12" TextColor="{StaticResource Primary}"/>
+                                    <Label Text="{Binding Summary}" FontSize="11" TextColor="{StaticResource TextSecondary}"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Favorites -->
+            <VerticalStackLayout Spacing="8" IsVisible="{Binding FavoriteWorkouts.Count, Converter={StaticResource IntToBoolConverter}}">
+                <Label Text="Favorites" FontSize="18" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}"/>
+                <CollectionView ItemsSource="{Binding FavoriteWorkouts}" HeightRequest="120">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="12"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:Object">
+                            <Border Style="{StaticResource CardBorder}" WidthRequest="160">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=StartWorkoutCommand}" CommandParameter="{Binding}"/>
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Padding="12" Spacing="4" VerticalOptions="Center">
+                                    <Label Text="{Binding Name}" FontFamily="OpenSansSemibold" FontSize="14" LineBreakMode="TailTruncation" TextColor="{StaticResource TextPrimary}"/>
+                                    <Label Text="{Binding TimerType}" FontSize="12" TextColor="{StaticResource Primary}"/>
+                                    <Label Text="{Binding Summary}" FontSize="11" TextColor="{StaticResource TextSecondary}"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
